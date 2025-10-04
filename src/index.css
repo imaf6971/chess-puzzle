@@ -1,0 +1,334 @@
+@import "tailwindcss";
+
+@theme {
+    /* Chess-themed colors */
+    --color-chess-light: #f0d9b5;
+    --color-chess-dark: #b58863;
+    --color-chess-border: #8b4513;
+    --color-chess-primary: #3498db;
+    --color-chess-secondary: #2c3e50;
+    --color-chess-success: #27ae60;
+    --color-chess-warning: #f39c12;
+    --color-chess-danger: #e74c3c;
+    --color-chess-pawn: #e74c3c;
+    --color-chess-queen: #9b59b6;
+    --color-chess-knight: #3498db;
+    --color-chess-bishop: #e67e22;
+    --color-chess-rook: #27ae60;
+
+    /* Custom shadows */
+    --shadow-chess: 0 10px 30px rgb(0 0 0 / 0.2);
+    --shadow-chess-hover: 0 6px 20px rgb(231 76 60 / 0.4);
+    --shadow-chess-glow: 0 0 20px rgb(255 235 59 / 0.8);
+
+    /* Custom blur values */
+    --blur-chess: 10px;
+
+    /* Custom animations */
+    --animate-goal-pulse: goal-pulse 2s infinite;
+    --animate-valid-move-pulse: valid-move-pulse 1.5s infinite;
+    --animate-move-indicator-pulse: move-indicator-pulse 1s infinite;
+    --animate-player-piece-glow: player-piece-glow 3s infinite;
+    --animate-pawn-glow: pawn-glow 3s infinite;
+    --animate-queen-glow: queen-glow 2s infinite;
+    --animate-slide-in-right: slide-in-right 0.5s ease;
+    --animate-fade-in: fade-in 0.5s ease-in;
+    --animate-bounce-chess: bounce-chess 2s infinite;
+    --animate-spin-slow: spin-slow 3s linear infinite;
+
+    /* Animation keyframes */
+    @keyframes goal-pulse {
+        0%,
+        100% {
+            box-shadow: inset 0 0 20px rgb(255 255 255 / 0.3);
+        }
+        50% {
+            box-shadow: inset 0 0 30px rgb(255 255 255 / 0.6);
+        }
+    }
+
+    @keyframes valid-move-pulse {
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+    }
+
+    @keyframes move-indicator-pulse {
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        50% {
+            transform: scale(1.3);
+            opacity: 1;
+        }
+    }
+
+    @keyframes player-piece-glow {
+        0%,
+        100% {
+            text-shadow: 2px 2px 4px rgb(0 0 0 / 0.3);
+        }
+        50% {
+            text-shadow: 0 0 10px rgb(52 152 219 / 0.6);
+        }
+    }
+
+    @keyframes pawn-glow {
+        0%,
+        100% {
+            text-shadow: 2px 2px 4px rgb(0 0 0 / 0.3);
+        }
+        50% {
+            text-shadow: 0 0 15px rgb(231 76 60 / 0.8);
+        }
+    }
+
+    @keyframes queen-glow {
+        0%,
+        100% {
+            text-shadow: 2px 2px 4px rgb(0 0 0 / 0.3);
+        }
+        50% {
+            text-shadow: 0 0 15px rgb(155 89 182 / 0.8);
+        }
+    }
+
+    @keyframes slide-in-right {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes bounce-chess {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
+    }
+
+    @keyframes spin-slow {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+/* Custom gradient backgrounds (not part of @theme since they're not utilities) */
+:root {
+    --gradient-chess: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-chess-win: linear-gradient(45deg, #ff6b6b, #feca57);
+    --gradient-chess-ai: linear-gradient(45deg, #e74c3c, #f39c12);
+    --gradient-chess-solve: linear-gradient(45deg, #3498db, #2980b9);
+    --gradient-chess-analyze: linear-gradient(45deg, #9b59b6, #8e44ad);
+    --gradient-chess-reset: linear-gradient(45deg, #e74c3c, #c0392b);
+    --gradient-chess-success: linear-gradient(45deg, #27ae60, #2ecc71);
+    --gradient-chess-goal: linear-gradient(45deg, #4caf50, #8bc34a);
+    --gradient-chess-move-indicator: radial-gradient(circle, #4caf50, #2e7d32);
+}
+
+/* Custom utility classes for gradients */
+.bg-chess-gradient {
+    background: var(--gradient-chess);
+}
+
+.bg-chess-win {
+    background: var(--gradient-chess-win);
+}
+
+.bg-chess-ai {
+    background: var(--gradient-chess-ai);
+}
+
+.bg-chess-solve {
+    background: var(--gradient-chess-solve);
+}
+
+.bg-chess-analyze {
+    background: var(--gradient-chess-analyze);
+}
+
+.bg-chess-reset {
+    background: var(--gradient-chess-reset);
+}
+
+.bg-chess-success {
+    background: var(--gradient-chess-success);
+}
+
+/* Chess board square colors - these need to be CSS classes for dynamic board rendering */
+.chess-light-square {
+    background-color: var(--color-chess-light);
+}
+
+.chess-dark-square {
+    background-color: var(--color-chess-dark);
+}
+
+.chess-goal-square {
+    background: var(--gradient-chess-goal) !important;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Selection styling */
+::selection {
+    background: var(--color-chess-primary);
+    color: white;
+}
+
+::-moz-selection {
+    background: var(--color-chess-primary);
+    color: white;
+}
+
+/* Print styles */
+/* Solution Preview Specific Styles */
+.chess-primary-light {
+    color: rgba(52, 152, 219, 0.8);
+}
+
+.solution-preview-overlay {
+    backdrop-filter: blur(8px);
+}
+
+.solution-board-highlight {
+    position: relative;
+    overflow: visible;
+}
+
+.solution-board-highlight::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 8px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.solution-from-square::before {
+    border: 3px solid #ef4444;
+    animation: solution-pulse 2s infinite;
+}
+
+.solution-to-square::before {
+    border: 3px solid #22c55e;
+    animation: solution-pulse 2s infinite;
+}
+
+@keyframes solution-pulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+/* Enhanced scrollbar for solution preview */
+.solution-move-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.solution-move-list::-webkit-scrollbar-track {
+    background: #f8fafc;
+    border-radius: 3px;
+}
+
+.solution-move-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.solution-move-list::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Move button hover effects */
+.move-button {
+    transition: all 0.2s ease;
+}
+
+.move-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.move-button.active {
+    transform: scale(1.02);
+}
+
+/* Keyboard shortcut styling */
+.keyboard-shortcuts {
+    font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+}
+
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .chess-board-container {
+        box-shadow: none !important;
+        border: 1px solid black !important;
+    }
+}
