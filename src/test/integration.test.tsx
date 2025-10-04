@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ChessPuzzle } from "../components/ChessPuzzle";
 import { ChessPuzzleAISolver } from "../aiSolver";
@@ -9,7 +9,7 @@ import {
   getValidMoves,
   getPawnPiece,
 } from "../gameLogic";
-import { PieceType, SquareType } from "../types";
+import { PieceType, SquareType, type Piece } from "../types";
 
 // Mock window.alert for tests
 const mockAlert = vi.fn();
@@ -158,6 +158,7 @@ describe("Chess Puzzle Integration Tests", () => {
                   : row === 3 && (col === 1 || col === 2)
                     ? SquareType.MISSING
                     : SquareType.NORMAL,
+              piece: undefined as Piece | undefined,
             })),
         );
 
@@ -213,6 +214,7 @@ describe("Chess Puzzle Integration Tests", () => {
                   : row === 3 && (col === 1 || col === 2)
                     ? SquareType.MISSING
                     : SquareType.NORMAL,
+              piece: undefined as Piece | undefined,
             })),
         );
 
@@ -298,6 +300,7 @@ describe("Chess Puzzle Integration Tests", () => {
                   : row === 3 && (col === 1 || col === 2)
                     ? SquareType.MISSING
                     : SquareType.NORMAL,
+              piece: undefined as Piece | undefined,
             })),
         );
 

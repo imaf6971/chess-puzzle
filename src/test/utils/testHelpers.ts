@@ -1,4 +1,4 @@
-import type { Board, Piece, Square, Position, GameState, Move } from "../../types";
+import type { Board, Piece, Position, GameState, Move } from "../../types";
 import { PieceType, SquareType } from "../../types";
 
 /**
@@ -14,7 +14,7 @@ export const createEmptyBoard = (): Board => {
     .map(() =>
       Array(4)
         .fill(null)
-        .map(() => ({ type: SquareType.NORMAL }))
+        .map(() => ({ type: SquareType.NORMAL })),
     );
 };
 
@@ -34,7 +34,7 @@ export const createBoardWithSpecialSquares = (): Board => {
               : row === 3 && (col === 1 || col === 2)
                 ? SquareType.MISSING
                 : SquareType.NORMAL,
-        }))
+        })),
     );
 };
 
@@ -45,7 +45,7 @@ export const createTestPiece = (
   type: PieceType,
   row: number,
   col: number,
-  id?: string
+  id?: string,
 ): Piece => ({
   type,
   position: { row, col },
@@ -59,7 +59,7 @@ export const placePieceOnBoard = (
   board: Board,
   piece: Piece,
   row: number,
-  col: number
+  col: number,
 ): Board => {
   const newBoard = structuredClone(board);
   const updatedPiece = { ...piece, position: { row, col } };
@@ -70,7 +70,11 @@ export const placePieceOnBoard = (
 /**
  * Remove a piece from board at given position
  */
-export const removePieceFromBoard = (board: Board, row: number, col: number): Board => {
+export const removePieceFromBoard = (
+  board: Board,
+  row: number,
+  col: number,
+): Board => {
   const newBoard = structuredClone(board);
   newBoard[row][col].piece = undefined;
   return newBoard;
@@ -95,7 +99,7 @@ export const createTestMove = (
   from: Position,
   to: Position,
   piece: Piece,
-  isPromotion?: boolean
+  isPromotion?: boolean,
 ): Move => ({
   from,
   to,
@@ -106,7 +110,10 @@ export const createTestMove = (
 /**
  * Count pieces of a specific type on the board
  */
-export const countPiecesOfType = (board: Board, pieceType: PieceType): number => {
+export const countPiecesOfType = (
+  board: Board,
+  pieceType: PieceType,
+): number => {
   let count = 0;
   for (let row = 0; row < 4; row++) {
     for (let col = 0; col < 4; col++) {
@@ -144,7 +151,10 @@ export const positionsEqual = (pos1: Position, pos2: Position): boolean => {
 /**
  * Check if a position exists in an array of positions
  */
-export const positionInArray = (position: Position, positions: Position[]): boolean => {
+export const positionInArray = (
+  position: Position,
+  positions: Position[],
+): boolean => {
   return positions.some((pos) => positionsEqual(pos, position));
 };
 
@@ -153,8 +163,8 @@ export const positionInArray = (position: Position, positions: Position[]): bool
  */
 export const createBoardWithClearPath = (
   startPos: Position,
-  endPos: Position,
-  pieceType: PieceType = PieceType.PAWN
+  _endPos: Position,
+  pieceType: PieceType = PieceType.PAWN,
 ): Board => {
   const board = createBoardWithSpecialSquares();
   const piece = createTestPiece(pieceType, startPos.row, startPos.col);
@@ -166,7 +176,7 @@ export const createBoardWithClearPath = (
  */
 export const createBoardWithBlocking = (
   mainPiece: { type: PieceType; position: Position },
-  blockingPieces: Array<{ type: PieceType; position: Position }>
+  blockingPieces: Array<{ type: PieceType; position: Position }>,
 ): Board => {
   const board = createBoardWithSpecialSquares();
 
@@ -174,9 +184,14 @@ export const createBoardWithBlocking = (
   const mainPieceObj = createTestPiece(
     mainPiece.type,
     mainPiece.position.row,
-    mainPiece.position.col
+    mainPiece.position.col,
   );
-  let resultBoard = placePieceOnBoard(board, mainPieceObj, mainPiece.position.row, mainPiece.position.col);
+  let resultBoard = placePieceOnBoard(
+    board,
+    mainPieceObj,
+    mainPiece.position.row,
+    mainPiece.position.col,
+  );
 
   // Place blocking pieces
   blockingPieces.forEach((blockingPiece, index) => {
@@ -184,9 +199,14 @@ export const createBoardWithBlocking = (
       blockingPiece.type,
       blockingPiece.position.row,
       blockingPiece.position.col,
-      `blocking-${index}`
+      `blocking-${index}`,
     );
-    resultBoard = placePieceOnBoard(resultBoard, piece, blockingPiece.position.row, blockingPiece.position.col);
+    resultBoard = placePieceOnBoard(
+      resultBoard,
+      piece,
+      blockingPiece.position.row,
+      blockingPiece.position.col,
+    );
   });
 
   return resultBoard;
@@ -232,8 +252,10 @@ export const validateBoardStructure = (board: Board): boolean => {
       }
 
       // Check if piece position matches square position
-      if (square.piece &&
-          (square.piece.position.row !== row || square.piece.position.col !== col)) {
+      if (
+        square.piece &&
+        (square.piece.position.row !== row || square.piece.position.col !== col)
+      ) {
         return false;
       }
     }
@@ -253,7 +275,12 @@ export const manhattanDistance = (pos1: Position, pos2: Position): number => {
  * Check if a position is within board bounds
  */
 export const isWithinBounds = (position: Position): boolean => {
-  return position.row >= 0 && position.row < 4 && position.col >= 0 && position.col < 4;
+  return (
+    position.row >= 0 &&
+    position.row < 4 &&
+    position.col >= 0 &&
+    position.col < 4
+  );
 };
 
 /**
@@ -332,7 +359,7 @@ export const boardsEqual = (board1: Board, board2: Board): boolean => {
  */
 export const measurePerformance = async <T>(
   testFn: () => Promise<T> | T,
-  maxTimeMs: number = 1000
+  maxTimeMs: number = 1000,
 ): Promise<{ result: T; timeElapsed: number; withinLimit: boolean }> => {
   const startTime = Date.now();
   const result = await testFn();
@@ -363,7 +390,9 @@ export const createMockGameLogicFunctions = () => ({
  */
 export const assertValidPosition = (position: Position): void => {
   if (!isWithinBounds(position)) {
-    throw new Error(`Position (${position.row}, ${position.col}) is out of bounds`);
+    throw new Error(
+      `Position (${position.row}, ${position.col}) is out of bounds`,
+    );
   }
 };
 
@@ -505,5 +534,7 @@ export const printMove = (move: Move): string => {
 };
 
 export const printMoveSequence = (moves: Move[]): string => {
-  return moves.map((move, index) => `${index + 1}. ${printMove(move)}`).join("\n");
+  return moves
+    .map((move, index) => `${index + 1}. ${printMove(move)}`)
+    .join("\n");
 };

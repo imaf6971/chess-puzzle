@@ -23,9 +23,7 @@ import {
   SquareType,
   type Board,
   type Piece,
-  type Position,
   type Move,
-  type GameState,
 } from "../types";
 
 describe("Game Logic Module", () => {

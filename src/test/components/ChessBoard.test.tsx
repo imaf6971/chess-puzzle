@@ -1,13 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ChessBoard } from "../../components/ChessBoard";
-import {
-  PieceType,
-  SquareType,
-  type GameState,
-  type Position,
-} from "../../types";
+import { PieceType, SquareType, type GameState } from "../../types";
 import {
   createTestGameState,
   createBoardWithSpecialSquares,

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { ChessPuzzleAISolver } from "../aiSolver";
 import {
   initializeBoard,
@@ -10,13 +10,7 @@ import {
   analyzeBoardState,
   canPawnReachGoal,
 } from "../gameLogic";
-import {
-  PieceType,
-  SquareType,
-  type Board,
-  type Piece,
-  type Move,
-} from "../types";
+import { PieceType, type Move } from "../types";
 import {
   createEmptyBoard,
   createBoardWithSpecialSquares,
@@ -551,7 +545,7 @@ describe("Performance Tests", () => {
             operations.push(
               Promise.resolve().then(() => {
                 const pieces = getAllPlayerPieces(board);
-                const pawn = getPawnPiece(board);
+                getPawnPiece(board);
                 analyzeBoardState(board);
                 canPawnReachGoal(board);
 
@@ -585,7 +579,7 @@ describe("Performance Tests", () => {
         solver.analyzeBoardState(board);
 
         // Start and immediately abandon solving to test cleanup
-        const solvingPromise = solver.solvePuzzle().catch(() => {});
+        solver.solvePuzzle().catch(() => {});
         await new Promise((resolve) => setTimeout(resolve, 10));
       }
 

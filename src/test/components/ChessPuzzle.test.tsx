@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ChessPuzzle } from "../../components/ChessPuzzle";
 import * as gameLogic from "../../gameLogic";
-import { PieceType, SquareType, type GameState, type Move } from "../../types";
+import { PieceType, SquareType, type GameState } from "../../types";
 
 // Mock the gameLogic module
 vi.mock("../../gameLogic", () => ({
@@ -372,8 +372,6 @@ describe("ChessPuzzle Component", () => {
 
   describe("Game Reset", () => {
     it("should reset game when reset is triggered", async () => {
-      const user = userEvent.setup();
-
       render(<ChessPuzzle />);
 
       // Initial call

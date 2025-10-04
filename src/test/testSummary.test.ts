@@ -17,11 +17,11 @@ describe("Test Suite Completeness and Coverage", () => {
       "utils/testHelpers.ts",
     ];
 
-    testFiles.forEach(testFile => {
+    testFiles.forEach((testFile) => {
       it(`should have test file: ${testFile}`, () => {
         try {
           const filePath = join(__dirname, testFile);
-          const content = readFileSync(filePath, 'utf8');
+          const content = readFileSync(filePath, "utf8");
           expect(content.length).toBeGreaterThan(0);
         } catch (error) {
           throw new Error(`Test file ${testFile} not found or empty`);
@@ -41,15 +41,16 @@ describe("Test Suite Completeness and Coverage", () => {
       "../components/Square.tsx",
     ];
 
-    sourceFiles.forEach(sourceFile => {
+    sourceFiles.forEach((sourceFile) => {
       it(`should have corresponding tests for: ${sourceFile}`, () => {
         try {
           const filePath = join(__dirname, sourceFile);
-          const content = readFileSync(filePath, 'utf8');
+          const content = readFileSync(filePath, "utf8");
           expect(content.length).toBeGreaterThan(0);
 
           // Check if it's a TypeScript/React file
-          const isTypeScript = sourceFile.endsWith('.ts') || sourceFile.endsWith('.tsx');
+          const isTypeScript =
+            sourceFile.endsWith(".ts") || sourceFile.endsWith(".tsx");
           expect(isTypeScript).toBe(true);
         } catch (error) {
           throw new Error(`Source file ${sourceFile} not found`);
@@ -87,13 +88,13 @@ describe("Test Suite Completeness and Coverage", () => {
 
   describe("Test Quality Metrics", () => {
     it("should test all piece types", () => {
-      const pieceTypes = ['KNIGHT', 'BISHOP', 'ROOK', 'PAWN', 'QUEEN'];
+      const pieceTypes = ["KNIGHT", "BISHOP", "ROOK", "PAWN", "QUEEN"];
       // All piece types should be tested in gameLogic tests
       expect(pieceTypes.length).toBe(5);
     });
 
     it("should test all square types", () => {
-      const squareTypes = ['NORMAL', 'GOAL', 'MISSING'];
+      const squareTypes = ["NORMAL", "GOAL", "MISSING"];
       // All square types should be tested
       expect(squareTypes.length).toBe(3);
     });
@@ -130,10 +131,10 @@ describe("Test Suite Completeness and Coverage", () => {
       "State management",
       "Data validation",
       "Integration scenarios",
-      "Regression prevention"
+      "Regression prevention",
     ];
 
-    testAreas.forEach(area => {
+    testAreas.forEach((area) => {
       it(`should cover: ${area}`, () => {
         // Each area should be covered across the test suite
         expect(true).toBe(true);
@@ -223,7 +224,7 @@ describe("Test Suite Completeness and Coverage", () => {
     it("should have proper test setup", () => {
       try {
         const setupPath = join(__dirname, "setup.ts");
-        const setupContent = readFileSync(setupPath, 'utf8');
+        const setupContent = readFileSync(setupPath, "utf8");
         expect(setupContent).toContain("@testing-library/jest-dom");
         expect(setupContent).toContain("cleanup");
       } catch (error) {
@@ -234,7 +235,7 @@ describe("Test Suite Completeness and Coverage", () => {
     it("should have test utilities", () => {
       try {
         const utilsPath = join(__dirname, "utils/testHelpers.ts");
-        const utilsContent = readFileSync(utilsPath, 'utf8');
+        const utilsContent = readFileSync(utilsPath, "utf8");
         expect(utilsContent.length).toBeGreaterThan(1000);
         expect(utilsContent).toContain("createEmptyBoard");
         expect(utilsContent).toContain("createTestPiece");
@@ -323,17 +324,17 @@ describe("Test Suite Completeness and Coverage", () => {
   describe("Comprehensive Test Summary", () => {
     it("should achieve comprehensive test coverage", () => {
       const testCategories = {
-        unitTests: true,      // Types, GameLogic, AISolver
+        unitTests: true, // Types, GameLogic, AISolver
         componentTests: true, // React components
         integrationTests: true, // Full system integration
         performanceTests: true, // Performance and stress
         accessibilityTests: true, // A11y compliance
         errorHandlingTests: true, // Error scenarios
-        edgeCaseTests: true,     // Boundary conditions
-        regressionTests: true,   // Prevent bugs
+        edgeCaseTests: true, // Boundary conditions
+        regressionTests: true, // Prevent bugs
       };
 
-      Object.entries(testCategories).forEach(([category, covered]) => {
+      Object.entries(testCategories).forEach(([, covered]) => {
         expect(covered).toBe(true);
       });
     });
@@ -363,7 +364,7 @@ describe("Test Suite Completeness and Coverage", () => {
         performanceTesting: true,
       };
 
-      Object.values(testInfrastructure).forEach(requirement => {
+      Object.values(testInfrastructure).forEach((requirement) => {
         expect(requirement).toBe(true);
       });
     });
@@ -382,7 +383,7 @@ describe("Test Suite Completeness and Coverage", () => {
         responsiveDesignTesting: true,
       };
 
-      Object.entries(qualityStandards).forEach(([standard, met]) => {
+      Object.entries(qualityStandards).forEach(([, met]) => {
         expect(met).toBe(true);
       });
     });
@@ -401,7 +402,7 @@ describe("Test Suite Completeness and Coverage", () => {
         performanceOptimization: true,
       };
 
-      Object.entries(chessPuzzleFeatures).forEach(([feature, tested]) => {
+      Object.entries(chessPuzzleFeatures).forEach(([, tested]) => {
         expect(tested).toBe(true);
       });
     });
@@ -418,8 +419,10 @@ describe("Test Suite Completeness and Coverage", () => {
         qualityAssurance: "Comprehensive",
       };
 
-      Object.keys(professionalStandards).forEach(standard => {
-        expect(professionalStandards[standard as keyof typeof professionalStandards]).toBeDefined();
+      Object.keys(professionalStandards).forEach((standard) => {
+        expect(
+          professionalStandards[standard as keyof typeof professionalStandards],
+        ).toBeDefined();
       });
     });
   });

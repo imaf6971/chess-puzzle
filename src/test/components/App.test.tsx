@@ -13,7 +13,13 @@ vi.mock("../../components/ChessPuzzle", () => ({
 }));
 
 vi.mock("../../components/AISolver", () => ({
-  AISolver: ({ onSolutionFound, onAnalysisUpdate }: any) => (
+  AISolver: ({
+    onSolutionFound,
+    onAnalysisUpdate,
+  }: {
+    onSolutionFound?: (moves: Move[], algorithm?: string) => void;
+    onAnalysisUpdate?: (analysis: BoardAnalysis) => void;
+  }) => (
     <div data-testid="ai-solver">
       <button
         onClick={() => {
@@ -28,7 +34,7 @@ vi.mock("../../components/AISolver", () => ({
               },
             },
           ];
-          onSolutionFound(mockMoves, "astar");
+          onSolutionFound?.(mockMoves, "astar");
         }}
       >
         Find Solution
@@ -42,7 +48,7 @@ vi.mock("../../components/AISolver", () => ({
             movesToGoal: 6,
             blockingPieces: 5,
           };
-          onAnalysisUpdate(mockAnalysis);
+          onAnalysisUpdate?.(mockAnalysis);
         }}
       >
         Analyze Board
